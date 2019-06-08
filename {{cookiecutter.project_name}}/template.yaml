@@ -1,0 +1,26 @@
+Resources:
+  default:
+    Type: TencentCloud::Serverless::Namespace
+    cdn_dispatch_log_jobs:
+      Type: TencentCloud::Serverless::Function
+      Properties:
+        CodeUri: ./cdn_dispatch_log_jobs
+        Description: get CDN logs by url and upload to COS. this is control function.
+        Environment:
+          Variables:
+            ENV_FIRST: env1
+            ENV_SECOND: env2
+        Handler: index.main_handler
+        MemorySize: 128
+        {%- if cookiecutter.runtime == 'Python2.7' %}
+        Runtime: Python2.7
+        {%- elif cookiecutter.runtime == 'Python3.6' %}
+        Runtime: Python3.6
+        {%- else %}
+        Runtime: Python3.6
+        {%- endif %}
+        Timeout: 300
+
+Globals:
+  Function:
+    Timeout: 10
